@@ -1,5 +1,9 @@
 <?php
 
+$app->group('/auth', function() {
+	$this->post('', 'AuthController:login');
+});
+
 $app->group('/invoices', function() {
 
 	$this->get('', 'InvoiceController:getAll');

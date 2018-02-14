@@ -11,6 +11,10 @@ $container['db'] = function($container) {
 	return $capsule;
 };
 
+$container['AuthController'] = function($container) {
+	$table = $container->get('db');
+	return new \App\Controllers\AuthController($table);
+};
 
 $container['UserController'] = function($container) {
 	$table = $container->get('db');

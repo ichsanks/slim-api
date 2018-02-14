@@ -5,32 +5,27 @@ namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-use \App\Models\Invoices;
-use \App\Models\Jobs;
+use \App\Models\Users;
 
 class InvoiceController {
 
-	public function getAll(Request $request, Response $response, $args) {
-		$page 		= $request->getParam('page') > 0 ? $request->getParam('page') : 1;
-		$per_page 	= $request->getParam('per_page') > 0 ? $request->getParam('per_page') : 10;
-		$search		= $request->getParam('search');
-		$year		= $request->getParam('year');
-		$month		= $request->getParam('month');
+	public function Login(Request $request, Response $response, $args) {
 
-		$query = Invoices::all();
-		$total = count($query);
+		$query = Users::all();		
 
-		return $response->withJson([
-			"status"	=> "Success", 
-			"data" 		=> $query, 
-			"meta" 		=> [
-				"pagination" => [
-					"total"			=> $total,
-					"per_page"		=> $per_page,
-					"curr_page"		=> $page,
-				]
-			]
-		], 200);
+        if(count($query) == 1) {
+            return $response->withJson([
+                "status"	=> "Success", 
+                "data" 		=> $query, 
+                "meta" 		=> [
+                    "pagination" => [
+                        "total"			=> $total,
+                        "per_page"		=> $per_page,
+                        "curr_page"		=> $page					
+                    ]
+                ]
+            ], 200);
+        }		
 	}
 
 	public function get(Request $request, Response $response, $args) {
@@ -78,11 +73,11 @@ class InvoiceController {
 		$data = $request->getParsedBody();
 		$query = Invoices::find($args['id']);
 
-		$query->doc_number 		= $data['doc_number'] ?: $query->doc_number;
-		$query->doc_date 		= $data['doc_date'] ?: $query->doc_date;
-		$query->acc_number 		= $data['acc_number'] ?: $query->acc_number;
-		$query->acc_date 		= $data['acc_date'] ?: $query->acc_date;
-		$query->date_received 	= $data['date_received'] ?: $query->date_received;
+		$query->doc_number = $data['doc_number'] ?: $query->doc_number;
+		$query->doc_date = $data['doc_date'] ?: $query->doc_date;
+		$query->acc_number = $data['acc_number'] ?: $query->acc_number;
+		$query->acc_date = $data['acc_date'] ?: $query->acc_date;
+		$query->date_received = $data['date_received'] ?: $query->date_received;
 		
 		if($query->save()) {
 			return $response->withJson([
@@ -139,11 +134,11 @@ class InvoiceController {
 
 		$query = Invoices::find($args['id'])->jobs;
 
-		$query->doc_number 		= $data['doc_number'] ?: $query->doc_number;
-		$query->doc_date 		= $data['doc_date'] ?: $query->doc_date;
-		$query->acc_number 		= $data['acc_number'] ?: $query->acc_number;
-		$query->acc_date 		= $data['acc_date'] ?: $query->acc_date;
-		$query->date_received 	= $data['date_received'] ?: $query->date_received;
+		$query->doc_number = $data['doc_number'] ?: $query->doc_number;
+		$query->doc_date = $data['doc_date'] ?: $query->doc_date;
+		$query->acc_number = $data['acc_number'] ?: $query->acc_number;
+		$query->acc_date = $data['acc_date'] ?: $query->acc_date;
+		$query->date_received = $data['date_received'] ?: $query->date_received;
 		
 		if($query->save()) {
 			return $response->withJson([

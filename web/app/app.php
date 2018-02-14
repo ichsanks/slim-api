@@ -9,7 +9,7 @@ $app = new \Slim\App($container);
 
 require __DIR__ . '/dependencies.php';
 
-//require __DIR__ . '/../app/middlewares.php';
+//require __DIR__ . '/middlewares/jwt.php';
 
 require __DIR__ . '/routes.php';
 
