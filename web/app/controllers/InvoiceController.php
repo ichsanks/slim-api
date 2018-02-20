@@ -5,6 +5,8 @@ namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+use \Firebase\JWT\JWT;
+
 use \App\Models\Invoices;
 use \App\Models\Jobs;
 
@@ -21,8 +23,8 @@ class InvoiceController {
 		$total = count($query);
 
 		return $response->withJson([
-			"status"	=> "Success", 
-			"data" 		=> $query, 
+			"status"	=> "Success",
+			"data" 		=> $query,
 			"meta" 		=> [
 				"pagination" => [
 					"total"			=> $total,
